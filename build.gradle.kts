@@ -19,15 +19,24 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("com.h2database:h2")
-	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
-	testImplementation("org.springframework.boot:spring-boot-starter-security-test")
-	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
-tasks.withType<Test> {
+
+tasks.test {
 	useJUnitPlatform()
+
+	testLogging {
+		events("passed", "skipped", "failed")
+		showExceptions = true
+		exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+		showCauses = true
+		showStackTraces = true
+		showStandardStreams = false
+	}
 }
