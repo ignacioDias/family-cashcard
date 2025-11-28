@@ -6,7 +6,6 @@ import java.security.Principal;
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -93,5 +92,4 @@ public class UserController {
         userRepository.deleteById(username);
         return ResponseEntity.noContent().build();
     }
-
 }
