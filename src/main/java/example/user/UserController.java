@@ -47,6 +47,9 @@ public class UserController {
     }
     @GetMapping("/{username}")
     private ResponseEntity<String> findByUsername(@PathVariable String username, Principal principal) {
+        if(principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         if(!principal.getName().equals(username))
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         var userFromDB = userRepository.findById(username).orElse(null);
