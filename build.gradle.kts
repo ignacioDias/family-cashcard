@@ -6,7 +6,6 @@ plugins {
 
 group = "com.familycashcard"
 version = "0.0.1-SNAPSHOT"
-description = "A Spring Boot application that allows parents to manage virtual cash cards for their children — create, update, delete, and track allowance funds securely."
 
 java {
 	toolchain {
@@ -25,8 +24,11 @@ dependencies {
 	implementation("com.h2database:h2")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	testImplementation("org.springframework.boot:spring-boot-test")
+	testImplementation("org.springframework.boot:spring-boot-test-autoconfigure")
 }
+
+
 
 tasks.test {
 	useJUnitPlatform()
