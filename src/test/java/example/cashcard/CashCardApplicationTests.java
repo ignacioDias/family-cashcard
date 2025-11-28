@@ -2,9 +2,9 @@ package example.cashcard;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
-
+import example.user.User;
 import net.minidev.json.JSONArray;
-
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.web.client.RestClient;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,7 +41,7 @@ class CashCardApplicationTests {
 			return RestClient.builder();
 		}
 	}
-
+    
     @BeforeEach
     void setUp() {
         client = RestClient.builder()
@@ -205,7 +207,7 @@ class CashCardApplicationTests {
                         .headers(clientResponse.getHeaders())
                         .body(clientResponse.bodyTo(String.class));
                 });
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @Test

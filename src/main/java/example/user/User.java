@@ -4,21 +4,21 @@ import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "users")
 public class User {
     @Id
     private String username;
     private String password;
-    private String role;
 
     public User( ) {
     }
 
-    public User(String username, String password, String role) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role = role;
     }
 
     public String getUsername() {
@@ -37,14 +37,6 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return this.role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,7 +47,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password, role);
+        return Objects.hash(username, password);
     }
     
 }

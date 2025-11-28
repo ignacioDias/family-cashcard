@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import java.net.URI;
 import java.security.Principal;
 import java.util.List;
@@ -30,6 +29,7 @@ public class CashCardController {
         }
         return ResponseEntity.notFound().build();
     }
+
     @GetMapping
     private ResponseEntity<List<CashCard>> findAllByOwner(Pageable pageable, Principal principal) {
         Page<CashCard> page = cashCardRepository.findByOwner(principal.getName(),
@@ -40,6 +40,7 @@ public class CashCardController {
                 ));
         return ResponseEntity.ok(page.getContent());
     }
+
     @PostMapping
     private ResponseEntity<Void> createCashCard(@RequestBody CashCard cashCard, UriComponentsBuilder ucb, Principal principal) {
         var newCashCard = new CashCard(null, cashCard.getAmount(), principal.getName());
@@ -50,6 +51,7 @@ public class CashCardController {
                 .toUri();
         return ResponseEntity.created(locationOfNewCashCard).build();
     }
+
     @PutMapping("/{requestedId}")
     private ResponseEntity<Void> updateCashCard(@PathVariable Long requestedId, @RequestBody CashCard cashCard, Principal principal) {
         if(cashCardRepository.existsByIdAndOwner(requestedId, principal.getName())) {
@@ -59,6 +61,7 @@ public class CashCardController {
         }
         return ResponseEntity.notFound().build();
     }
+
     @DeleteMapping("/{requestedId}")
     private ResponseEntity<Void> deleteCashCard(@PathVariable Long requestedId, Principal principal) {
         if(cashCardRepository.existsByIdAndOwner(requestedId, principal.getName())) {
